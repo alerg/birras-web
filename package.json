@@ -16,12 +16,16 @@
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-chai-friendly": "0.5.0",
-    "eslint-plugin-import": "2.20.1"
+    "eslint-plugin-import": "2.20.1",
+    "mocha": "8.1.1",
+    "sinon": "^9.0.2",
+    "whatwg-fetch": "^3.4.0"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "test": "mocha --exit",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   }
 }

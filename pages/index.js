@@ -1,6 +1,6 @@
 import React from 'react';
-import AppTheme from './../src/components/AppTheme';
-import Home from './../src/components/Home';
+import AppTheme from './../src/modules/components/AppTheme';
+import Home from './../src/modules/components/Home';
 
 export default function Page() {
   return (

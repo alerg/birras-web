@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/onepirate/*": ["src/onepirate/modules/*"],
+      "@/components/*": ["src/modules/components/*"],
+    }
+  }
+}

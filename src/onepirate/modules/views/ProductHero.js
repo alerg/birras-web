@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Button from './Button';
-import Typography from './Typography';
-import ProductHeroLayout from './ProductHeroLayout';
+import Button from '../components/Button';
+import Typography from '../components/Typography';
+import ProductHeroLayout from '../views/ProductHeroLayout';
 
 const backgroundImage =
-  'https://images.unsplash.com/photo-1534854638093-bada1813ca19?auto=format&fit=crop&w=1400&q=80';
+  'https://p1.pxfuel.com/preview/94/771/655/jogging-run-sport-jog.jpg';
 
 const styles = (theme) => ({
   background: {
@@ -32,6 +32,8 @@ const styles = (theme) => ({
 function ProductHero(props) {
   const { classes } = props;
 
+
+
   return (
     <ProductHeroLayout backgroundClassName={classes.background}>
       {/* Increase the network loading priority of the background image. */}
@@ -41,7 +43,7 @@ function ProductHero(props) {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Upgrade your Sundays
+        Seguís moviendote hacía adelante
       </Typography>
       <Typography
         color="inherit"
@@ -49,7 +51,7 @@ function ProductHero(props) {
         variant="h5"
         className={classes.h5}
       >
-        Enjoy secret offers up to -70% off the best luxury hotels every Sunday.
+        Miles de meetups te esperan ... y birras también ;).
       </Typography>
       <Button
         color="secondary"

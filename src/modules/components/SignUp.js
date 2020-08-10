@@ -2,10 +2,13 @@
 import withRoot from '../../onepirate/modules/withRoot';
 // --- Post bootstrap -----
 import React from 'react';
+import { useRouter } from 'next/router'
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Link from '@material-ui/core/Link';
 import { Field, Form, FormSpy } from 'react-final-form';
+import { FORM_ERROR } from 'final-form'
 
 import Typography from '../../onepirate/modules/components/Typography';
 
@@ -13,10 +16,12 @@ import AppFooter from '../../onepirate/modules/views/AppFooter';
 import AppAppBar from '../../onepirate/modules/views/AppAppBar';
 import AppForm from '../../onepirate/modules/views/AppForm';
 
-import { email, required } from '../../onepirate/modules/form/validation';
+import { email, required, password } from '../../onepirate/modules/form/validation';
 import RFTextField from '../../onepirate/modules/form/RFTextField';
 import FormButton from '../../onepirate/modules/form/FormButton';
 import FormFeedback from '../../onepirate/modules/form/FormFeedback';
+
+import { signup } from '../../utils/api' ;
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -32,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignUp() {
+  const router = useRouter()
+
   const classes = useStyles();
   const [sent, setSent] = React.useState(false);
 
@@ -48,14 +55,32 @@ function SignUp() {
       }
     }
 
+    if (!errors.password) {
+      const emailError = password(values.password);
+      if (emailError) {
+        errors.password = emailError;
+      }
+    }
+
     return errors;
   };
 
-  const handleSubmit = () => {
-    debugger;
+  const onSubmit = async (values) => {
     setSent(true);
-    const errors = validate();
-    console.log("errors", errors);
+    const status = await signup(values);
+    setSent(false);
+    switch (status) {
+      case 'ok':
+        await signin(values);
+        router.push('/')
+        break;
+      case 'bad':
+        return { [FORM_ERROR]: 'Completa todos los campos' };
+      case 'conflict':
+        return { [FORM_ERROR]: 'Ya te encuentras registrado' };
+      default:
+        return { [FORM_ERROR]: 'Ocurrió un error. Inténtalo nuevamente.' };
+    }
   };
 
   return (
@@ -72,12 +97,13 @@ function SignUp() {
             </Link>
           </Typography>
         </React.Fragment>
+
+
         <Form
-          onSubmit={handleSubmit}
-          subscription={{ submitting: true }}
+          onSubmit={onSubmit}
           validate={validate}
-        >
-          {({ handleSubmit2, submitting }) => (
+          subscription={{ submitting: true }}
+          render = {({ handleSubmit, submitting }) => (
             <form onSubmit={handleSubmit} className={classes.form} noValidate>
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -141,8 +167,7 @@ function SignUp() {
                 {submitting || sent ? 'In progress…' : 'Sign Up'}
               </FormButton>
             </form>
-          )}
-        </Form>
+          )} />
       </AppForm>
       <AppFooter />
     </React.Fragment>

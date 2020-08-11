@@ -1,6 +1,6 @@
 import React from 'react';
-import AppTheme from '../src/modules/components/AppTheme';
-import SignIn from '../src/modules/components/SignIn';
+import AppTheme from '../components/AppTheme';
+import SignIn from '../components/SignIn';
 
 export default function Page() {
   return (

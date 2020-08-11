@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '../components/Button';
 import Typography from '../components/Typography';
-import ProductHeroLayout from '../views/ProductHeroLayout';
+import ProductHeroLayout from './ProductHeroLayout';
+
+import { isLoggedUser } from '../../../../utils/user'
 
 const backgroundImage =
   'https://p1.pxfuel.com/preview/94/771/655/jogging-run-sport-jog.jpg';
@@ -43,7 +45,7 @@ function ProductHero(props) {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Seguís moviendote hacía adelante
+        Seguí avanzando
       </Typography>
       <Typography
         color="inherit"
@@ -53,6 +55,7 @@ function ProductHero(props) {
       >
         Miles de meetups te esperan ... y birras también ;).
       </Typography>
+      { !isLoggedUser && 
       <Button
         color="secondary"
         variant="contained"
@@ -63,9 +66,7 @@ function ProductHero(props) {
       >
         Register
       </Button>
-      <Typography variant="body2" color="inherit" className={classes.more}>
-        Discover the experience
-      </Typography>
+      }
     </ProductHeroLayout>
   );
 }

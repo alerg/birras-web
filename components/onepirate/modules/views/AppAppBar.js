@@ -5,6 +5,14 @@ import { withStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import AppBar from '../components/AppBar';
 import Toolbar, { styles as toolbarStyles } from '../components/Toolbar';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+
+import {
+  getLoggedUser,
+  isLoggedUser,
+  logoutUser,
+} from '../../../../utils/user';
 
 const styles = (theme) => ({
   title: {
@@ -33,10 +41,25 @@ const styles = (theme) => ({
   linkSecondary: {
     color: theme.palette.secondary.main,
   },
+  logout: {
+    'font-size': '28px',
+  },
 });
 
 function AppAppBar(props) {
   const { classes } = props;
+  const [user, setUser] = React.useState();
+
+  React.useEffect(() => {
+    if (!user) {
+      setUser(getLoggedUser());
+    }
+  }, [user]);
+
+  const handlerLogout = () => {
+    logoutUser();
+    setUser();
+  }
 
   return (
     <div>
@@ -52,6 +75,18 @@ function AppAppBar(props) {
           >
             {'Meetup Birras'}
           </Link>
+          { user ? 
+            <div className={classes.right}>
+              <Tooltip title="Logout">
+                <Button
+                  onClick={handlerLogout}
+                  className={classes.rightLink}
+                >
+                  {user.email}
+                </Button>
+              </Tooltip>
+            </div>
+          :
           <div className={classes.right}>
             <Link
               color="inherit"
@@ -71,6 +106,7 @@ function AppAppBar(props) {
               {'Sign Up'}
             </Link>
           </div>
+          }
         </Toolbar>
       </AppBar>
       <div className={classes.placeholder} />

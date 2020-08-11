@@ -5,6 +5,9 @@ services:
     ports:
      - "3000:3000"
     volumes:
-     - ./src:/web/src
      - ./pages:/web/pages
+     - ./components:/web/components
+     - ./utils:/web/utils
+     - ./public:/web/public
+     - .env:/web/.env
     command: sh -c  "npm i && npm run dev"

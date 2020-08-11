@@ -5,7 +5,8 @@
   "dependencies": {
     "@material-ui/core": "latest",
     "clsx": "latest",
-    "final-form": "^4.20.1",
+    "dayjs": "1.8.33",
+    "final-form": "4.20.1",
     "next": "latest",
     "prop-types": "latest",
     "react": "latest",

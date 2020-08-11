@@ -1,6 +1,6 @@
 import React from 'react';
-import AppTheme from '../src/modules/components/AppTheme';
-import SignUp from '../src/modules/components/SignUp';
+import AppTheme from '../components/AppTheme';
+import SignUp from '../components/SignUp';
 
 export default function Page() {
   return (

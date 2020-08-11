@@ -1,19 +1,19 @@
 const assert = require('assert');
-const sinon = require("sinon");
+const sinon = require('sinon');
 
 const {
   getLoggedUser,
   isLoggedUser,
-} = require('../src/utils/user');
+} = require('../utils/user');
 
 describe('Dado un usuario', () => {
   it('debe llamar al la funcion con el Argumento esperado', () => {
     global.localStorage = {
       getItem: () => {},
-    }
+    };
     const mock = sinon.mock(global.localStorage);
 
-    mock.expects("getItem").once().withExactArgs("tkn");
+    mock.expects('getItem').once().withExactArgs('user');
 
     getLoggedUser();
 
@@ -21,10 +21,10 @@ describe('Dado un usuario', () => {
   });
 
   it('si no existe un token en localStorage debe devolver el error not_exists', () => {
-    const expected = 'not_exists';
+    const expected = undefined;
     global.localStorage = {
       getItem: () => null,
-    }
+    };
 
     const actual = getLoggedUser();
 
@@ -35,7 +35,7 @@ describe('Dado un usuario', () => {
     const expected = 'unexpected_error';
     global.localStorage = {
       getItem: () => 'I am not a object',
-    }
+    };
 
     const actual = getLoggedUser();
 
@@ -46,7 +46,7 @@ describe('Dado un usuario', () => {
     const expected = true;
     global.localStorage = {
       getItem: () => {},
-    }
+    };
 
     const actual = isLoggedUser();
 
@@ -57,7 +57,7 @@ describe('Dado un usuario', () => {
     const expected = false;
     global.localStorage = {
       getItem: () => null,
-    }
+    };
 
     const actual = isLoggedUser();
 
